@@ -49,4 +49,4 @@ def batch_prediction():
 
 
 if __name__ == '__main__':
-    app.run(port=8501)
+    app.run(host="0.0.0.0")
