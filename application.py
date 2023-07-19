@@ -1,48 +1,51 @@
 from pathlib import Path
 
 import pandas as pd
-import streamlit as st
+from flask import Flask, jsonify, render_template, request
 
 from src.pipeline.batch_prediction import start_batch_prediction
 from src.pipeline.training_pipeline import start_training_pipeline
 
 input_fp = Path('input.csv')
-
-if input_fp.exists():
-    input_fp.unlink()
-
-msg = st.empty()
+app = Flask(__name__)
 
 
-# Train model button
-with st.spinner('Training in progress...'):
-    if st.button('Train Model', use_container_width=True):
-        start_training_pipeline()
-        msg.success('Model Training Completed.', icon='✅')
+@app.route('/')
+def index():
+    return render_template('index.html')
 
 
-# Upload CSV file button
-with st.form("upload_form"):
-    uploaded_file = st.file_uploader(
-        "Choose a CSV file to upload", type=["csv"],
-    )
+@app.route('/train_model', methods=['POST'])
+def train_model():
+    start_training_pipeline()
+    return jsonify({'message': 'Model Training Completed!'})
 
-    if st.form_submit_button("Submit") and uploaded_file:
-        df = pd.read_csv(uploaded_file)
-        df.to_csv(input_fp, index=False)
-        msg.success('Your data is submitted successfully.')
 
-# Download button
-if input_fp.exists():
-    prediction_fp = start_batch_prediction(input_fp)
-    df = pd.read_csv(prediction_fp)
-    msg.success('Prediction Completed. Download your file.')
+@app.route('/predict')
+def predict():
+    return render_template('predict.html')
 
-    if st.download_button(
-        label="Download Prediction DataFrame",
-        file_name="prediction.csv",
-        data=df.to_csv(index=False),
-        mime="csv",
-        use_container_width=True
-    ):
-        st.experimental_rerun()
+
+@app.route('/batch_prediction', methods=['POST'])
+def batch_prediction():
+    if 'file' not in request.files:
+        return jsonify({'error': 'No file uploaded'})
+
+    file = request.files['file']
+    if file.filename == '':
+        return jsonify({'error': 'No file selected'})
+
+    try:
+        df = pd.read_csv(file.stream)
+        df.to_csv(input_fp)
+        prediction_fp = Path(start_batch_prediction(input_fp))
+        return {
+            'message': 'Prediction Completed!',
+            'prediction_path': prediction_fp.absolute().as_uri(),
+        }
+    except Exception as e:
+        return jsonify(f'Error occurred: {e}')
+
+
+if __name__ == '__main__':
+    app.run(debug=True, port=8501)
