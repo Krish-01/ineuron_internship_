@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<p>
+    <h1 class="text-center text-danger mb-5">
+        APS Fault Detection
+    </h1>
+</p>
+
+<p>
+    <div class="text-center">
+        <form action="/train_model" method="post">
+            <button class="btn btn-danger btn-lg" type="submit">Train Model</button>
+        </form>
+    </div>
+</p>
+
+<div class="d-flex flex-column justify-content-end align-items-center" style="height: 40vw;">
+    <p>
+        <h2 class="text-center">
+            <a href="https://github.com/tarun707" class="mr-5">
+                <button class="btn btn-lg btn-outline-success"><strong>@tarun707</strong></button>
+            </a>
+            <a href="https://github.com/arv-anshul">
+                <button class="btn btn-lg btn-outline-success"><strong>@arv-anshul</strong></button>
+            </a>
+        </h2>
+    </p>
+
+    <p>
+        <h2 class="text-center">
+            <a href="https://github.com/tarun707/ineuron_internship_">
+                <button class="btn btn-lg btn-primary">Project Repository</button>
+            </a>
+        </h2>
+    </p>
+</div>
+{% endblock %}
