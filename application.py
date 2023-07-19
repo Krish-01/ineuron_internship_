@@ -7,8 +7,9 @@ from src.pipeline.batch_prediction import start_batch_prediction
 from src.pipeline.training_pipeline import start_training_pipeline
 
 input_fp = Path('input.csv')
-app = Flask(__name__)
+application = Flask(__name__)
 
+app=application
 
 @app.route('/')
 def index():
