@@ -65,3 +65,8 @@ Deployment is the method by which we integrate a machine learning model into pro
 - [LLD](./docs/LLD.pdf)
 - [HLD](./docs/HLD.pdf)
 - [Wireframe](./docs/Wireframe.pdf)
+
+## UI Screenshots
+
+![home.png](assets/home.png)
+![prediction.png](assets/prediction.png)
