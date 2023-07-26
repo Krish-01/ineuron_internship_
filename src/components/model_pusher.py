@@ -11,7 +11,7 @@ class ModelPusher:
     data_transformation_artifact:DataTransformationArtifact,
     model_trainer_artifact:ModelTrainerArtifact):
         try:
-            logging.info(f"{'>>'*20} Data Transformation {'<<'*20}")
+            logging.info(f"{'>>'*20} Model Pusher {'<<'*20}")
             self.model_pusher_config=model_pusher_config
             self.data_transformation_artifact=data_transformation_artifact
             self.model_trainer_artifact=model_trainer_artifact

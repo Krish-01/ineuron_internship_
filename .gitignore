@@ -28,6 +28,9 @@ share/python-wheels/
 .installed.cfg
 *.egg
 MANIFEST
+logs
+prediction
+saved_models
 
 # PyInstaller
 #  Usually these files are written by a python script from a template
@@ -124,6 +127,7 @@ celerybeat.pid
 *.sage.py
 
 # Environments
+artifact/
 .env
 .venv
 env/
