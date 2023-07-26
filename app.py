@@ -3,9 +3,9 @@ from pathlib import Path
 import pandas as pd
 import streamlit as st
 
-from src.exception import SensorException
 from src.pipeline.batch_prediction import start_batch_prediction
 from src.pipeline.training_pipeline import start_training_pipeline
+from src.predictor import ModelResolver
 
 input_fp = Path('input.csv')
 
@@ -17,10 +17,17 @@ msg = st.empty()
 
 
 # Train model button
-with st.spinner('Training in progress...'):
-    if st.button('Train Model', use_container_width=True):
-        start_training_pipeline()
-        msg.success('Model Training Completed.', icon='✅')
+if ModelResolver().get_latest_dir_path() is None:
+    with st.spinner('Training in progress...'):
+            if st.button('Train Model', use_container_width=True):
+                start_training_pipeline()
+                msg.success('Model Training Completed.', icon='✅')
+else:
+    msg.warning('Model already trained. Start your Batch Prediction.', icon='🤖')
+    with st.spinner('Re-Training in progress...'):
+            if st.button('Re-Train the Model', use_container_width=True):
+                start_training_pipeline()
+                msg.success('Re-Training Completed.', icon='✅')
 
 
 # Upload CSV file button
@@ -46,6 +53,6 @@ if input_fp.exists():
         file_name="prediction.csv",
         data=df.to_csv(index=False),
         mime="csv",
-        use_container_width=True
+        use_container_width=True,
     ):
         st.experimental_rerun()
