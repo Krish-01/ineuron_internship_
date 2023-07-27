@@ -49,7 +49,7 @@ with st.form("upload_form"):
     )
 
     if st.form_submit_button("Submit") and uploaded_file:
-        if Path(saved_model_dir).exists():
+        if not Path(saved_model_dir).exists():
             msg.warning('Model is not trained yet. Please train model.')
             st.stop()
 
