@@ -17,7 +17,7 @@
 2. Machine learning algorithms
 3. MongoDB
 4. AWS
-5. Flask
+5. Streamlit
 6. Git
 
 ## Project Pipeline
@@ -67,6 +67,8 @@ Deployment is the method by which we integrate a machine learning model into pro
 - [Wireframe](./docs/Wireframe.pdf)
 
 ## UI Screenshots
+
+[![Streamlit Badge](https://img.shields.io/badge/Streamlit-FF4B4B?logo=streamlit&logoColor=fff&style=for-the-badge)](https://ineuroninternship-issac2ykkzewtwkdbvc8yl.streamlit.app/)
 
 ![home.png](assets/home.png)
 ![prediction.png](assets/prediction.png)
