@@ -66,9 +66,12 @@ Deployment is the method by which we integrate a machine learning model into pro
 - [HLD](./docs/HLD.pdf)
 - [Wireframe](./docs/Wireframe.pdf)
 
+# WebPage URL
+
+https://ineuroninternship-issac2ykkzewtwkdbvc8yl.streamlit.app/
+
 ## UI Screenshots
 
-[![Streamlit Badge](https://img.shields.io/badge/Streamlit-FF4B4B?logo=streamlit&logoColor=fff&style=for-the-badge)](https://ineuroninternship-issac2ykkzewtwkdbvc8yl.streamlit.app/)
 
 ![home.png](assets/home.png)
 ![prediction.png](assets/prediction.png)
