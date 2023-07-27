@@ -34,7 +34,8 @@ else:
                 icon='🤖')
     with st.spinner('Deletion in progress...'):
         if st.button('Delete Pre-Trained Model', use_container_width=True):
-            rmtree(saved_model_dir)     # Delete saved_model_dir
+            rmtree(saved_model_dir)     # Delete saved_model_dir tree
+            Path(saved_model_dir).rmdir() # Delete saved_model_dir itself
             rmtree(Path('logs'))        # Delete logs folder
             msg.success('Pre-Trained model deleted.', icon='✅')
             sleep(2)
@@ -49,7 +50,8 @@ with st.form("upload_form"):
     )
 
     if st.form_submit_button("Submit") and uploaded_file:
-        if not Path(saved_model_dir).exists():
+        if (not Path(saved_model_dir).exists() or
+            len(list(Path(saved_model_dir).iterdir())) == 0):
             msg.warning('Model is not trained yet. Please train model.')
             st.stop()
 
