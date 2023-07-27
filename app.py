@@ -1,8 +1,11 @@
 from pathlib import Path
+from shutil import rmtree
+from time import sleep
 
 import pandas as pd
 import streamlit as st
 
+from src.entity.config_entity import ModelPusherConfig, TrainingPipelineConfig
 from src.pipeline.batch_prediction import start_batch_prediction
 from src.pipeline.training_pipeline import start_training_pipeline
 from src.predictor import ModelResolver
@@ -15,19 +18,27 @@ if input_fp.exists():
 st.title(':red[APS Fault Detection System]')
 msg = st.empty()
 
+# --- --- Variables --- --- #
+latest_dir_path = ModelResolver().get_latest_dir_path()
+saved_model_dir = ModelPusherConfig(TrainingPipelineConfig()).saved_model_dir
 
 # Train model button
-if ModelResolver().get_latest_dir_path() is None:
+if latest_dir_path is None:
     with st.spinner('Training in progress...'):
-            if st.button('Train Model', use_container_width=True):
-                start_training_pipeline()
-                msg.success('Model Training Completed.', icon='✅')
+        if st.button('Train Model', use_container_width=True):
+            start_training_pipeline()
+            msg.success('Model Training Completed.', icon='✅')
+            st.experimental_rerun()
 else:
-    msg.warning('Model already trained. Start your Batch Prediction.', icon='🤖')
-    with st.spinner('Re-Training in progress...'):
-            if st.button('Re-Train the Model', use_container_width=True):
-                start_training_pipeline()
-                msg.success('Re-Training Completed.', icon='✅')
+    msg.warning('Model already trained. Start your Batch Prediction.',
+                icon='🤖')
+    with st.spinner('Deletion in progress...'):
+        if st.button('Delete Pre-Trained Model', use_container_width=True):
+            rmtree(saved_model_dir)     # Delete saved_model_dir
+            rmtree(Path('logs'))        # Delete logs folder
+            msg.success('Pre-Trained model deleted.', icon='✅')
+            sleep(2)
+            st.experimental_rerun()
 
 
 # Upload CSV file button
@@ -38,6 +49,10 @@ with st.form("upload_form"):
     )
 
     if st.form_submit_button("Submit") and uploaded_file:
+        if Path(saved_model_dir).exists():
+            msg.warning('Model is not trained yet. Please train model.')
+            st.stop()
+
         df = pd.read_csv(uploaded_file)
         df.to_csv(input_fp, index=False)
         msg.success('Your data is submitted successfully.')
