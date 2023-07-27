@@ -8,7 +8,7 @@
 
 ## Solution Proposed
 
-- The Air Pressure System (APS), which produces pressurised air used for numerous vehicle tasks including braking and gear changes, is the system that is the focus of this research. The dataset's positive class relates to component failures for a certain APS system component. The negative class applies to vehicles having issues with non-APS system-related parts.
+- The Air Pressure System (APS), which produces pressurized air used for numerous vehicle tasks including braking and gear changes, is the system that is the focus of this research. The dataset's positive class relates to component failures for a certain APS system component. The negative class applies to vehicles having issues with non-APS system-related parts.
 
 - The challenge is to reduce costs associated with unneeded repairs. Thus, it is necessary to reduce the number of erroneous forecasts.
 
@@ -26,7 +26,7 @@
 3. Data Transformation
 4. Model Training
 5. Model Evaluation
-6. Model Deployement
+6. Model Deployment
 
 ## 1. Data Ingestion:
 
@@ -44,7 +44,7 @@ Data transformation is the process of converting raw data into a format or struc
 
 ## 4. Model Training
 
-Model training in machine learning is the process in which a machine learning (ML) algorithm is created or selected and fed with sufficient training data so that it could learn and give accuarte predictions in the future.
+Model training in machine learning is the process in which a machine learning (ML) algorithm is created or selected and fed with sufficient training data so that it could learn and give accurate predictions in the future.
 
 ## 5. Model Evaluation
 
@@ -52,7 +52,7 @@ Model training in machine learning is the process in which a machine learning (M
 
 - Model evaluation is important to assess the efficacy of a model during initial research phases, and it also plays a role in model monitoring.
 
-## 6. Model Deployement
+## 6. Model Deployment
 
 Deployment is the method by which we integrate a machine learning model into production environment to make practical business decisions based on data.
 
@@ -65,3 +65,8 @@ Deployment is the method by which we integrate a machine learning model into pro
 - [LLD](./docs/LLD.pdf)
 - [HLD](./docs/HLD.pdf)
 - [Wireframe](./docs/Wireframe.pdf)
+
+## UI Screenshots
+
+![home.png](assets/home.png)
+![prediction.png](assets/prediction.png)
